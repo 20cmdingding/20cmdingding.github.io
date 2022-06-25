@@ -1,0 +1,121 @@
+{{ define "title" }}
+{{ .Title }} · {{ .Site.Title }}
+{{ end }}
+{{ define "content" }}
+<section class="container post">
+    <div class="chart-net-value"></div>
+    {{ if eq .Params.include_draw_down true }}
+    <div class="chart-draw-down"></div>
+    {{ end }}
+</section>
+
+<script src="https://cdn.staticfile.org/echarts/5.3.1/echarts.min.js"></script>
+
+<script type="text/javascript">
+    // 净值曲线
+    var chartDom = document.getElementById('chart-net-value');
+    var myChart = echarts.init(chartDom);
+    var option = {
+        title: {
+            text: '今年曲线（日）'
+        },
+        grid: {
+            top: 100
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: data_x
+        },
+        yAxis: {
+            type: 'value',
+            scale: true,
+            interval: 0.01,
+            max: function (value) {
+                return Math.ceil(value.max * 100) / 100 + 0.01
+            },
+            min: function (value) {
+                return Math.floor(value.min * 100) / 100 - 0.01
+            }
+        },
+        series: [
+            {
+                data: data_y,
+                type: 'line',
+                label: {
+                    show: true,
+                    formatter: function (params) {
+                        if (params.dataIndex === data_y.length - 1) {
+                            return Math.floor(params.data * 10000 + 0.5) / 10000
+                        } else {
+                            return ''
+                        }
+                    }
+                }
+            }
+        ]
+    };
+
+    option && myChart.setOption(option);
+
+</script>
+{{ if eq .Params.include_draw_down true }}
+<script type="text/javascript">
+    // 回撤曲线
+    var chartDom = document.getElementById('chart-draw-down');
+    var myChart = echarts.init(chartDom);
+    var option = {
+        title: {
+            text: '今年曲线（日）'
+        },
+        grid: {
+            top: 100
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            data: data_x
+        },
+        yAxis: {
+            type: 'value',
+            scale: true,
+            interval: 0.01,
+            max: function (value) {
+                return Math.ceil(value.max * 100) / 100 + 0.01
+            },
+            min: function (value) {
+                return Math.floor(value.min * 100) / 100 - 0.01
+            }
+        },
+        series: [
+            {
+                data: data_y,
+                type: 'line',
+                label: {
+                    show: true,
+                    formatter: function (params) {
+                        if (params.dataIndex === data_y.length - 1) {
+                            return Math.floor(params.data * 10000 + 0.5) / 10000
+                        } else {
+                            return ''
+                        }
+                    }
+                }
+            }
+        ]
+    };
+
+    option && myChart.setOption(option);
+
+</script>
+{{ end }}
+
+{{ end }}

@@ -1,7 +1,7 @@
 baseURL = 'https://miguoliang.com/dinglucheng_com'
 languageCode = 'zh_CN'
 title = '丁路程的量化交易'
-theme = 'hugo-coder'
+theme = 'coder'
 
 [params]
 author = "丁路程的量化交易"
