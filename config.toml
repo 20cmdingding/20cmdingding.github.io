@@ -1,3 +1,8 @@
-baseURL = 'http://example.org/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
+baseURL = 'https://miguoliang.com/dinglucheng_com'
+languageCode = 'zh_CN'
+title = '丁路程的量化交易'
+theme = 'hugo-coder'
+
+[params]
+author = "丁路程的量化交易"
+keywords = "CTA,股票,期货,期权,基金,量化交易"
