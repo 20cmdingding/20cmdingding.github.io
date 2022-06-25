@@ -3,24 +3,36 @@
 {{ end }}
 {{ define "content" }}
 <section class="container post">
-    <div class="chart-net-value"></div>
+    <div id="chart-net-value" style="width: 100%; height: 500px; margin-bottom: 2rem;"></div>
     {{ if eq .Params.include_draw_down true }}
-    <div class="chart-draw-down"></div>
+    <div id="chart-draw-down" style="width: 100%; height: 200px;"></div>
+    {{ end }}
+    <div id="chart-net-value-w" style="width: 100%; height: 500px; margin-bottom: 2rem;"></div>
+    {{ if eq .Params.include_draw_down true }}
+    <div id="chart-draw-down-w" style="width: 100%; height: 200px;"></div>
     {{ end }}
 </section>
 
 <script src="https://cdn.staticfile.org/echarts/5.3.1/echarts.min.js"></script>
 
+{{ .Content }}
+
 <script type="text/javascript">
-    // 净值曲线
+    // 净值曲线-日
     var chartDom = document.getElementById('chart-net-value');
     var myChart = echarts.init(chartDom);
     var option = {
         title: {
-            text: '今年曲线（日）'
+            text: '今年曲线，年初以来：' + net_value
+        },
+        tooltip: {
+            trigger: 'axis'
         },
         grid: {
-            top: 100
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
         },
         toolbox: {
             feature: {
@@ -29,33 +41,17 @@
         },
         xAxis: {
             type: 'category',
+            boundaryGap: false,
             data: data_x
         },
         yAxis: {
             type: 'value',
-            scale: true,
-            interval: 0.01,
-            max: function (value) {
-                return Math.ceil(value.max * 100) / 100 + 0.01
-            },
-            min: function (value) {
-                return Math.floor(value.min * 100) / 100 - 0.01
-            }
+            scale: true
         },
         series: [
             {
-                data: data_y,
-                type: 'line',
-                label: {
-                    show: true,
-                    formatter: function (params) {
-                        if (params.dataIndex === data_y.length - 1) {
-                            return Math.floor(params.data * 10000 + 0.5) / 10000
-                        } else {
-                            return ''
-                        }
-                    }
-                }
+                data: data_net_value,
+                type: 'line'
             }
         ]
     };
@@ -65,15 +61,24 @@
 </script>
 {{ if eq .Params.include_draw_down true }}
 <script type="text/javascript">
-    // 回撤曲线
+    // 回撤曲线-日
     var chartDom = document.getElementById('chart-draw-down');
     var myChart = echarts.init(chartDom);
     var option = {
         title: {
-            text: '今年曲线（日）'
+            text: '策略回撤'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['净值曲线']
         },
         grid: {
-            top: 100
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
         },
         toolbox: {
             feature: {
@@ -82,33 +87,108 @@
         },
         xAxis: {
             type: 'category',
+            boundaryGap: false,
             data: data_x
         },
         yAxis: {
             type: 'value',
-            scale: true,
-            interval: 0.01,
-            max: function (value) {
-                return Math.ceil(value.max * 100) / 100 + 0.01
-            },
-            min: function (value) {
-                return Math.floor(value.min * 100) / 100 - 0.01
-            }
+            min: -15
         },
         series: [
             {
-                data: data_y,
+                data: data_draw_down,
                 type: 'line',
-                label: {
-                    show: true,
-                    formatter: function (params) {
-                        if (params.dataIndex === data_y.length - 1) {
-                            return Math.floor(params.data * 10000 + 0.5) / 10000
-                        } else {
-                            return ''
-                        }
-                    }
-                }
+                areaStyle: {type:"default"}
+            }
+        ]
+    };
+
+    option && myChart.setOption(option);
+
+</script>
+{{ end }}
+<script type="text/javascript">
+    // 净值曲线-日
+    var chartDom = document.getElementById('chart-net-value');
+    var myChart = echarts.init(chartDom);
+    var option = {
+        title: {
+            text: '今年曲线，年初以来：' + net_value
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: data_x_w
+        },
+        yAxis: {
+            type: 'value',
+            scale: true
+        },
+        series: [
+            {
+                data: data_net_value_w,
+                type: 'line'
+            }
+        ]
+    };
+
+    option && myChart.setOption(option);
+
+</script>
+{{ if eq .Params.include_draw_down true }}
+<script type="text/javascript">
+    // 回撤曲线-日
+    var chartDom = document.getElementById('chart-draw-down');
+    var myChart = echarts.init(chartDom);
+    var option = {
+        title: {
+            text: '策略回撤'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['净值曲线']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: data_x_w
+        },
+        yAxis: {
+            type: 'value',
+            min: -15
+        },
+        series: [
+            {
+                data: data_draw_down_w,
+                type: 'line',
+                areaStyle: {type:"default"}
             }
         ]
     };

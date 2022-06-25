@@ -143,63 +143,6 @@
 {{ end }}
 {{ end }}
 
-<script src="https://cdn.staticfile.org/echarts/5.3.1/echarts.min.js"></script>
-
-<script type="text/javascript">
-
-    var chartDom = document.getElementById('chart');
-    var myChart = echarts.init(chartDom);
-    var option = {
-        title: {
-            text: '禅宽1号',
-            subtext: '追求稳定且长久的绝对收益，无值守情况下的全自动交易，实盘测试中',
-            itemGap: 20
-        },
-        grid: {
-            top: 100
-        },
-        toolbox: {
-            feature: {
-                saveAsImage: {}
-            }
-        },
-        xAxis: {
-            type: 'category',
-            data: data_x
-        },
-        yAxis: {
-            type: 'value',
-            scale: true,
-            interval: 0.01,
-            max: function (value) {
-                return Math.ceil(value.max * 100) / 100 + 0.01
-            },
-            min: function (value) {
-                return Math.floor(value.min * 100) / 100 - 0.01
-            }
-        },
-        series: [
-            {
-                data: data_y,
-                type: 'line',
-                label: {
-                    show: true,
-                    formatter: function (params) {
-                        if (params.dataIndex === data_y.length - 1) {
-                            return Math.floor(params.data * 10000 + 0.5) / 10000
-                        } else {
-                            return ''
-                        }
-                    }
-                }
-            }
-        ]
-    };
-
-    option && myChart.setOption(option);
-
-</script>
-
 </body>
 
 </html>
