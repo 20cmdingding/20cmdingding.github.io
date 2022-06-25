@@ -1,10 +1,7 @@
-
-<section class="container centered">
-    <div id="chart" style="width: 100%; height: 700px;"></div>
-</section>
-
-<script type="text/javascript">
-    data_x = ['20220615', '20220616', '20220617', '20220620', '20220621', '20220622', '20220623', '20220624']
-    data_y = [1.0, 1.0037191706522004, 1.0075115849316352, 1.014339595713018, 1.001924751340859, 1.0058190525604793, 1.0174233605543919, 1.0171967909578314]
-</script>
-                
+<div class="container grid sm:grid-cols-2 md:grid-cols-3 sm:gap-1 bg-slate-200 px-2 py-2">
+    {{ range .Site.RegularPages }}
+    <a class="flex flex-col justify-around bg-slate-200 hover:bg-white text-center" href="{{ .Permalink }}">
+        <span>{{ .Title }}</span>
+    </a>
+    {{ end }}
+</div>

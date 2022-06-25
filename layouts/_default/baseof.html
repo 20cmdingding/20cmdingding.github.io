@@ -104,6 +104,8 @@
     ` .Rel .MediaType.Type .RelPermalink $.Site.Title | safeHTML }}
     {{ end -}}
 
+    <link rel="stylesheet" href="{{ "output.css" | relURL }}">
+
     {{ hugo.Generator }}
 </head>
 
