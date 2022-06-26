@@ -1,4 +1,4 @@
-baseURL = 'https://miguoliang.com/dinglucheng_com'
+baseURL = 'https://dinglucheng.com'
 languageCode = 'zh_CN'
 title = '丁路程的量化交易'
 theme = 'coder'
