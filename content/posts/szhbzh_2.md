@@ -1,7 +1,7 @@
 
 +++ 
 draft = false
-date = 2022-06-27T15:24:48+08:00
+date = 2022-06-27T15:35:40+08:00
 title = "数值货币账户 2"
 include_draw_down = true
 +++
