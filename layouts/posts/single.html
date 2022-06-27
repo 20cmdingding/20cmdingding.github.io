@@ -7,10 +7,6 @@
     {{ if eq .Params.include_draw_down true }}
     <div id="chart-draw-down" style="width: 100%; height: 200px;"></div>
     {{ end }}
-    <div id="chart-net-value-w" style="width: 100%; height: 500px; margin-bottom: 2rem;"></div>
-    {{ if eq .Params.include_draw_down true }}
-    <div id="chart-draw-down-w" style="width: 100%; height: 200px;"></div>
-    {{ end }}
 </section>
 
 <script src="https://cdn.staticfile.org/echarts/5.3.1/echarts.min.js"></script>
@@ -97,96 +93,6 @@
         series: [
             {
                 data: data_draw_down,
-                type: 'line',
-                areaStyle: {type:"default"}
-            }
-        ]
-    };
-
-    option && myChart.setOption(option);
-
-</script>
-{{ end }}
-<script type="text/javascript">
-    // 净值曲线-日
-    var chartDom = document.getElementById('chart-net-value');
-    var myChart = echarts.init(chartDom);
-    var option = {
-        title: {
-            text: '今年曲线，年初以来：' + net_value
-        },
-        tooltip: {
-            trigger: 'axis'
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        toolbox: {
-            feature: {
-                saveAsImage: {}
-            }
-        },
-        xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: data_x_w
-        },
-        yAxis: {
-            type: 'value',
-            scale: true
-        },
-        series: [
-            {
-                data: data_net_value_w,
-                type: 'line'
-            }
-        ]
-    };
-
-    option && myChart.setOption(option);
-
-</script>
-{{ if eq .Params.include_draw_down true }}
-<script type="text/javascript">
-    // 回撤曲线-日
-    var chartDom = document.getElementById('chart-draw-down');
-    var myChart = echarts.init(chartDom);
-    var option = {
-        title: {
-            text: '策略回撤'
-        },
-        tooltip: {
-            trigger: 'axis'
-        },
-        legend: {
-            data: ['净值曲线']
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        toolbox: {
-            feature: {
-                saveAsImage: {}
-            }
-        },
-        xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: data_x_w
-        },
-        yAxis: {
-            type: 'value',
-            min: -15
-        },
-        series: [
-            {
-                data: data_draw_down_w,
                 type: 'line',
                 areaStyle: {type:"default"}
             }

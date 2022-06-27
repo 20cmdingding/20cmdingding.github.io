@@ -1,7 +1,18 @@
-+++
+
++++ 
 draft = false
-date = 2022-06-25T19:42:35+08:00
+date = 2022-06-27T15:24:47+08:00
 title = "VIX"
 include_draw_down = false
 +++
-
+{{< rawhtml >}}
+<script type="text/javascript">
+    net_value = '1'
+    data_x = []
+    data_x_w = []
+    data_net_value = []
+    data_net_value_w = []
+    data_draw_down = []
+    data_draw_down_w = []
+</script>
+{{< /rawhtml >}}
