@@ -22,7 +22,8 @@
             text: '今年曲线，年初以来：' + net_value
         },
         tooltip: {
-            trigger: 'axis'
+            trigger: 'axis',
+            valueFormatter: (value) => value.toFixed(4)
         },
         grid: {
             left: '3%',
@@ -62,10 +63,11 @@
     var myChart = echarts.init(chartDom);
     var option = {
         title: {
-            text: '策略回撤'
+            text: '策略回撤（百分比）'
         },
         tooltip: {
-            trigger: 'axis'
+            trigger: 'axis',
+            valueFormatter: (value) => value.toFixed(2) + '%'
         },
         legend: {
             data: ['净值曲线']
