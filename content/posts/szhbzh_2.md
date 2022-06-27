@@ -1,8 +1,8 @@
 
 +++ 
 draft = false
-date = 2022-06-27T16:58:38+08:00
-title = "数值货币账户 2"
+date = 2022-06-28T06:37:08+08:00
+title = "数字货币账户 2"
 include_draw_down = true
 +++
 {{< rawhtml >}}
